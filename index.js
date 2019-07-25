@@ -2,7 +2,8 @@ const wdio = require('webdriverio');
 
 const { 
   REMOTE_HOST, 
-  REMOTE_PORT, 
+  REMOTE_PORT,
+  REMOTE_PATH,
   ENABLE_VIDEO, 
   ENABLE_VNC,
   CI,
@@ -55,6 +56,7 @@ module.exports = {
       capabilities,
       port: parseInt(REMOTE_PORT) || 4444,
       hostname: REMOTE_HOST ? REMOTE_HOST.trim() : 'localhost',
+      path: REMOTE_PATH || '/wd/hub',
       logLevel: CI ? 'silent' : 'error'
     });
     browser.navigateTo(pageUrl);
