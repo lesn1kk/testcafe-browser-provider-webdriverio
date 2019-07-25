@@ -54,7 +54,7 @@ module.exports = {
     let browser = await wdio.remote({
       capabilities,
       port: parseInt(REMOTE_PORT) || 4444,
-      hostname: REMOTE_HOST.trim(),
+      hostname: REMOTE_HOST ? REMOTE_HOST.trim() : 'localhost',
       logLevel: CI ? 'silent' : 'error'
     });
     browser.navigateTo(pageUrl);
@@ -66,7 +66,7 @@ module.exports = {
   },
 
   async closeBrowser(id) {
-    this.browsers[id].deleteSession();
+    await this.browsers[id].deleteSession();
     delete this.browsers[id];
     clearInterval(this.heartbeats[id]);
     delete this.heartbeats[id];
